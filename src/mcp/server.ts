@@ -11,11 +11,12 @@ import { ApiSpecInput, FrontendLanguage, BackendLanguage, BodyType, ResponseType
 const app = express();
 app.use(cors());
 
-// Create MCP Server
-const server = new McpServer({
-  name: "SpecToCode",
-  version: "1.0.0",
-});
+// Create MCP Server instance for each connection
+function createServer() {
+  const server = new McpServer({
+    name: "SpecToCode",
+    version: "1.0.0",
+  });
 
 // Tool: list_languages
 server.tool(
@@ -123,16 +124,25 @@ ${controllerMethod}
   }
 );
 
+  return server;
+}
+
 // Map to store active SSE transports
 const transports = new Map<string, SSEServerTransport>();
 
 app.get("/sse", async (req, res) => {
+  const server = createServer();
   const transport = new SSEServerTransport("/message", res);
   await server.connect(transport);
   transports.set(transport.sessionId, transport);
   
-  res.on('close', () => {
+  res.on('close', async () => {
     transports.delete(transport.sessionId);
+    try {
+      await server.close();
+    } catch (e) {
+      console.error("Error closing server:", e);
+    }
   });
 });
 
