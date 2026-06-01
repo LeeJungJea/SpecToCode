@@ -2,6 +2,8 @@
 
 SpecToCode is a powerful developer tool that instantly generates frontend and backend code examples directly from API specifications. It simplifies the transition from API design to implementation by providing ready-to-use fetch clients, controller methods, and data transfer objects (DTOs) for a wide variety of modern frameworks and languages.
 
+**🌟 Live Demo:** [https://spec-to-code.vercel.app/](https://spec-to-code.vercel.app/)
+
 ## 🚀 Features
 
 - **Intuitive UI:** A familiar interface for designing API requests (Method, URL, Params, Headers, Body, Response).
