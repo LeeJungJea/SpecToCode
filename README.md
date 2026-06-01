@@ -47,4 +47,6 @@ Contributions are always welcome! Feel free to open an issue or submit a pull re
 
 ## 📄 License
 
+Copyright (c) 2026 Lee Jung Jea
+
 This project is open-source and available under the MIT License.
